@@ -1,6 +1,3 @@
-Here is your improved `README.md` with enhanced styling and organization:
-
-```markdown
 # Multi-Container Application with Docker, Node.js, and React
 
 ## Overview
@@ -33,6 +30,7 @@ Clone the repository to your local machine:
 ```bash
 git clone <repository-url>
 cd <project-directory>
+
 ```
 
 ### 2. Setup the Docker Containers
@@ -111,61 +109,6 @@ The frontend fetches one record per page and uses buttons to navigate through th
 
 The `docker-compose.yml` file defines three services: `db`, `node`, and `react`.
 
-```yaml
-version: '3.8'
-
-services:
-  db:
-    image: postgres:latest
-    container_name: postgres-db
-    environment:
-      POSTGRES_USER: devuser
-      POSTGRES_PASSWORD: devpassword
-      POSTGRES_DB: devdb
-    volumes:
-      - pgdata:/var/lib/postgresql/data
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
-    ports:
-      - "5432:5432"
-    networks:
-      - devnet
-
-  node:
-    build:
-      context: ./node-app
-    container_name: node-app
-    environment:
-      DB_HOST: db
-      DB_PORT: 5432
-      DB_NAME: devdb
-      DB_USER: devuser
-      DB_PASSWORD: devpassword
-    ports:
-      - "5000:5000"
-    depends_on:
-      - db
-    networks:
-      - devnet
-
-  react:
-    build:
-      context: ./react-app
-    container_name: react-app
-    ports:
-      - "3000:3000"
-    depends_on:
-      - node
-    networks:
-      - devnet
-
-volumes:
-  pgdata:
-
-networks:
-  devnet:
-    driver: bridge
-```
-
 ## Development
 
 ### Backend (Node.js)
@@ -182,4 +125,3 @@ This project showcases the power of Docker in running multi-container applicatio
 
 ```
 
-This version of your `README.md` is now more structured and uses markdown features like code blocks and headings for better readability.
