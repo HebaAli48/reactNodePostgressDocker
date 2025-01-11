@@ -5,6 +5,10 @@
 
 This project demonstrates a **multi-container application** using Docker, combining a **PostgreSQL database**, a **Node.js backend**, and a **React frontend**. The application fetches and displays data stored in a PostgreSQL database. The data represents information about Docker, Ansible, Jenkins, and other DevOps tools. The backend API serves the data in a paginated form, and the React frontend displays it with basic pagination.
 
+## images from project
+![Screenshot from 2025-01-11 18-01-51](https://github.com/user-attachments/assets/cf24e135-dfa3-4f5e-8365-54da8c5e3b04)
+
+
 ## Project Structure
 
 - **PostgreSQL Service**: Stores application data and is configured with credentials and connection details in the Docker Compose file.
