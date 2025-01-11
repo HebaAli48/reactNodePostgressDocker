@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+
+  # PostgreSQL Service
+  db:
+    image: postgres:latest
+    container_name: postgres-db
+    environment:
+      POSTGRES_USER: devuser
+      POSTGRES_PASSWORD: devpassword
+      POSTGRES_DB: devdb
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5432:5432"
+    networks:
+      - devnet
+
+  # Node.js Backend
+  node:
+    build:
+      context: ./node-app
+    container_name: node-app
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: devdb
+      DB_USER: devuser
+      DB_PASSWORD: devpassword
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+    networks:
+      - devnet
+
+  # React Frontend
+  react:
+    build:
+      context: ./react-app
+    container_name: react-app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - node
+    networks:
+      - devnet
+
+volumes:
+  pgdata:
+
+networks:
+  devnet:
+    driver: bridge
