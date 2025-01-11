@@ -43,18 +43,24 @@ const App = () => {
         {loading && <p style={styles.loading}>Loading...</p>}
         {error && <p style={styles.error}>{error}</p>}
 
-        {/* Background Image Above Info Counter */}
-        <div style={styles.imageContainer}></div>
+        {/* Grid Container for Image and List */}
+        <div style={styles.gridContainer}>
+          {/* Background Image */}
+          <div style={styles.imageContainer}></div>
 
+          {/* List of Information */}
+          <ul style={styles.list}>
+            {data.map((item) => (
+              <li key={item.id} style={styles.card}>
+                <h2 style={styles.title}>{item.title}</h2>
+                <h3 style={styles.description}>{item.description}</h3>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Pagination */}
         {currentId !== null && <p style={styles.counter}>INFO #: {currentId}</p>}
-        <ul style={styles.list}>
-          {data.map((item) => (
-            <li key={item.id} style={styles.card}>
-              <h2 style={styles.title}>{item.title}</h2>
-              <h3 style={styles.description}>{item.description}</h3>
-            </li>
-          ))}
-        </ul>
         <div style={styles.pagination}>
           <button
             onClick={() => setPage(page - 1)}
@@ -102,13 +108,20 @@ const styles = {
     padding: '20px',
     textAlign: 'center',
   },
+  gridContainer: {
+    display: 'grid',
+    gridTemplateColumns: '1fr 2fr', // Image takes 1/3, List takes 2/3
+    gap: '20px',
+    marginBottom: '20px',
+    alignItems: 'start', // Align items to the top
+  },
   imageContainer: {
     backgroundImage: 'url(https://newline.tech/wp-content/uploads/2023/04/DevOps-Engineer-what-is-it-and-what-do-they-do.png)', // Replace with your image URL
     backgroundSize: 'cover',
     backgroundPosition: 'center',
-    height: '600px',
+    height: '300px', // Fixed height for the image
     borderRadius: '8px',
-    marginBottom: '20px',
+    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
   },
   loading: {
     fontSize: '1.2rem',
@@ -136,10 +149,12 @@ const styles = {
     borderRadius: '8px',
     padding: '20px',
     textAlign: 'left',
+    transition: 'transform 0.2s ease-in-out',
   },
   title: {
     fontSize: '1.5rem',
     marginBottom: '10px',
+    color: '#007bff',
   },
   description: {
     fontSize: '1rem',
@@ -157,6 +172,7 @@ const styles = {
     borderRadius: '5px',
     cursor: 'pointer',
     margin: '0 5px',
+    transition: 'background-color 0.2s ease-in-out',
   },
   disabledButton: {
     backgroundColor: '#d6d6d6',
